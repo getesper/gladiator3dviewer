@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Potree Viewer - Skatepark</title>
 
-  <!-- ✅ FIXED CSS path -->
-  <link rel="stylesheet" type="text/css" href="../../build/potree.css">
+  <!-- ✅ Use Potree from CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/potree/potree@1.8/build/potree/potree.css">
   <link rel="stylesheet" type="text/css" href="../../libs/jquery-ui/jquery-ui.min.css">
   <link rel="stylesheet" type="text/css" href="../../libs/openlayers3/ol.css">
   <link rel="stylesheet" type="text/css" href="../../libs/spectrum/spectrum.css">
@@ -28,11 +28,11 @@
   <script src="../../libs/i18next/i18next.js"></script>
   <script src="../../libs/jstree/jstree.js"></script>
 
-  <!-- ✅ FIXED JS path -->
-  <script src="../../build/potree.js"></script>
+  <!-- ✅ Load Potree from CDN instead of GitHub Pages -->
+  <script src="https://cdn.jsdelivr.net/gh/potree/potree@1.8/build/potree/potree.js"></script>
   <script src="../../libs/plasio/js/laslaz.js"></script>
 
-  <!-- Make THREE globally available -->
+  <!-- THREE global fix -->
   <script>
     const THREE = Potree.THREE;
   </script>
