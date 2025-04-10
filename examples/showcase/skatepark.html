@@ -41,7 +41,7 @@
     <div id="potree_sidebar_container"></div>
   </div>
 
-  <!-- Viewer Logic -->
+  <!-- Viewer Setup -->
   <script>
     window.viewer = new Potree.Viewer(document.getElementById("potree_render_area"));
     viewer.setEDLEnabled(true);
@@ -50,29 +50,30 @@
     viewer.loadSettingsFromURL();
     viewer.setDescription('Skatepark point cloud demo courtesy of FARO');
 
+    // ✅ loadPointCloud moved inside loadGUI
     viewer.loadGUI(() => {
       viewer.setLanguage('en');
       $("#menu_tools").next().show();
+
+      Potree.loadPointCloud(
+        "https://cdn.jsdelivr.net/gh/potree/potree@1.8/resources/pointclouds/faro/skatepark/cloud.js",
+        "Skatepark",
+        function (e) {
+          let pointcloud = e.pointcloud;
+          let material = pointcloud.material;
+
+          material.size = 1;
+          material.pointSizeType = Potree.PointSizeType.ADAPTIVE;
+          material.shape = Potree.PointShape.SQUARE;
+
+          viewer.scene.addPointCloud(pointcloud);
+          e.pointcloud.position.z = 0;
+
+          viewer.scene.view.position.set(42.04, -16.38, 66.48);
+          viewer.scene.view.lookAt(new THREE.Vector3(18.56, -13.37, 49.91));
+        }
+      );
     });
-
-    Potree.loadPointCloud(
-      "https://cdn.jsdelivr.net/gh/potree/potree@1.8/resources/pointclouds/faro/skatepark/cloud.js",
-      "Skatepark",
-      function (e) {
-        let pointcloud = e.pointcloud;
-        let material = pointcloud.material;
-
-        material.size = 1;
-        material.pointSizeType = Potree.PointSizeType.ADAPTIVE;
-        material.shape = Potree.PointShape.SQUARE;
-
-        viewer.scene.addPointCloud(pointcloud);
-        e.pointcloud.position.z = 0;
-
-        viewer.scene.view.position.set(42.04, -16.38, 66.48);
-        viewer.scene.view.lookAt(new THREE.Vector3(18.56, -13.37, 49.91));
-      }
-    );
   </script>
 </body>
 </html>
