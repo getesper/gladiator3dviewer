@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <meta name="description" content="Potree Skatepark Demo">
 
-  <!-- ✅ Load working Potree CSS from potree.org -->
-  <link rel="stylesheet" href="https://www.potree.org/potree/examples/resources/css/potree.css">
+  <!-- ✅ Known good Potree CSS from GitHub raw -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/potree/potree@1.8/examples/resources/css/potree.css">
   <link rel="stylesheet" href="../../libs/jquery-ui/jquery-ui.min.css">
   <link rel="stylesheet" href="../../libs/openlayers3/ol.css">
   <link rel="stylesheet" href="../../libs/spectrum/spectrum.css">
@@ -33,8 +33,8 @@
   <script src="../../libs/jstree/jstree.js"></script>
   <script src="../../libs/plasio/js/laslaz.js"></script>
 
-  <!-- ✅ Potree from potree.org demo site (exposes Potree globally) -->
-  <script src="https://www.potree.org/potree/examples/resources/potree/potree.js"></script>
+  <!-- ✅ Load Potree that actually defines window.Potree -->
+  <script src="https://cdn.jsdelivr.net/gh/potree/potree@1.8/examples/js/potree.js"></script>
 
   <script>
     const THREE = Potree.THREE;
