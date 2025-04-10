@@ -30,19 +30,19 @@
 	<script src="../../build/potree/potree.js"></script>
 	<script src="../../libs/plasio/js/laslaz.js"></script>
 
-	<!-- 👇 Fix: make THREE globally available -->
+	<!-- Fix: Expose THREE globally -->
 	<script>
 		const THREE = Potree.THREE;
 	</script>
 
-	<!-- Viewer -->
+	<!-- Viewer Container -->
 	<div class="potree_container" style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;">
 		<div id="potree_render_area"></div>
 		<div id="potree_sidebar_container"></div>
 	</div>
 
+	<!-- Viewer Setup -->
 	<script>
-		// Initialize the Potree viewer
 		window.viewer = new Potree.Viewer(document.getElementById("potree_render_area"));
 		viewer.setEDLEnabled(true);
 		viewer.setFOV(60);
@@ -55,7 +55,7 @@
 			$("#menu_tools").next().show();
 		});
 
-		// Load the original skatepark point cloud via HTTPS
+		// Load skatepark point cloud from Potree GitHub CDN (HTTPS safe)
 		Potree.loadPointCloud("https://cdn.jsdelivr.net/gh/potree/potree@1.8/resources/pointclouds/faro/skatepark/cloud.js", "Skatepark", function(e) {
 			let pointcloud = e.pointcloud;
 			let material = pointcloud.material;
@@ -67,7 +67,6 @@
 			viewer.scene.addPointCloud(pointcloud);
 			e.pointcloud.position.z = 0;
 
-			// ✅ This now works because THREE is globally defined
 			viewer.scene.view.position.set(42.04, -16.38, 66.48);
 			viewer.scene.view.lookAt(new THREE.Vector3(18.56, -13.37, 49.91));
 		});
