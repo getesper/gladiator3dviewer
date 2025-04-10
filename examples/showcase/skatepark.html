@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<meta name="description" content="">
-	<meta name="author" content="">
+	<meta name="description" content="Potree Skatepark Demo">
+	<meta name="author" content="getesper">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-	<title>Potree Viewer</title>
+	<title>Potree Viewer - Skatepark</title>
 
+	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="../../build/potree/potree.css">
 	<link rel="stylesheet" type="text/css" href="../../libs/jquery-ui/jquery-ui.min.css">
 	<link rel="stylesheet" type="text/css" href="../../libs/openlayers3/ol.css">
@@ -15,10 +16,10 @@
 </head>
 
 <body>
+	<!-- JS Libraries -->
 	<script src="../../libs/jquery/jquery-3.1.1.min.js"></script>
 	<script src="../../libs/spectrum/spectrum.js"></script>
 	<script src="../../libs/jquery-ui/jquery-ui.min.js"></script>
-	
 	<script src="../../libs/other/BinaryHeap.js"></script>
 	<script src="../../libs/tween/tween.min.js"></script>
 	<script src="../../libs/d3/d3.js"></script>
@@ -28,54 +29,43 @@
 	<script src="../../libs/jstree/jstree.js"></script>
 	<script src="../../build/potree/potree.js"></script>
 	<script src="../../libs/plasio/js/laslaz.js"></script>
-	
-	<!-- INCLUDE ADDITIONAL DEPENDENCIES HERE -->
-	<!-- INCLUDE SETTINGS HERE -->
-	
-	<div class="potree_container" style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px; ">
-		<div id="potree_render_area"></div>
-		<div id="potree_sidebar_container"> </div>
-	</div>
-	
-	<script type="module">
 
-	import * as THREE from "../../libs/three.js/build/three.module.js";
-	
+	<!-- Viewer -->
+	<div class="potree_container" style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;">
+		<div id="potree_render_area"></div>
+		<div id="potree_sidebar_container"></div>
+	</div>
+
+	<script>
+		// Initialize the Potree viewer
 		window.viewer = new Potree.Viewer(document.getElementById("potree_render_area"));
-		
 		viewer.setEDLEnabled(true);
 		viewer.setFOV(60);
 		viewer.setPointBudget(2_000_000);
 		viewer.loadSettingsFromURL();
-		
-		viewer.setDescription('Point cloud courtesy of <a href="http://www.faro.com/home" target="_blank">Faro</a>. (78M points)');
-		
+		viewer.setDescription('Skatepark point cloud demo courtesy of FARO');
+
 		viewer.loadGUI(() => {
 			viewer.setLanguage('en');
 			$("#menu_tools").next().show();
-			//viewer.toggleSidebar();
 		});
-		
-		// Load and add point cloud to scene
-		Potree.loadPointCloud("http://5.9.65.151/mschuetz/potree/resources/pointclouds/faro/skatepark/cloud.js", "Skatepark", function(e){
-			let scene = viewer.scene;
+
+		// Load the original skatepark pointcloud via HTTPS
+		Potree.loadPointCloud("https://cdn.jsdelivr.net/gh/potree/potree@1.8/resources/pointclouds/faro/skatepark/cloud.js", "Skatepark", function(e) {
 			let pointcloud = e.pointcloud;
-			
 			let material = pointcloud.material;
+
 			material.size = 1;
 			material.pointSizeType = Potree.PointSizeType.ADAPTIVE;
 			material.shape = Potree.PointShape.SQUARE;
-			
-			scene.addPointCloud(pointcloud);
-			
+
+			viewer.scene.addPointCloud(pointcloud);
+
 			e.pointcloud.position.z = 0;
-			
-			scene.view.position.set(42.04, -16.38, 66.48);
-			scene.view.lookAt(new THREE.Vector3(18.56, -13.37, 49.91));
+
+			viewer.scene.view.position.set(42.04, -16.38, 66.48);
+			viewer.scene.view.lookAt(new THREE.Vector3(18.56, -13.37, 49.91));
 		});
-		
 	</script>
-	
-	
-  </body>
+</body>
 </html>
